@@ -1,0 +1,13 @@
+{
+    "name": "node-api",
+    "main": "index.js",
+    "dependencies": {
+        "file-system": "2.2.2",
+        "express": "~4.0.0",
+        "mongoose": "~3.6.13",
+        "body-parser": "~1.0.1",
+        "puppeteer": "2.1.1",
+        "jest": "25.1.0",
+        "jest-puppeteer": "4.4.0"
+    }
+}
