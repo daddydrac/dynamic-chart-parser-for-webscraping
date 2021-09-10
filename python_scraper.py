@@ -28,53 +28,43 @@ driver = webdriver.Chrome("/usr/local/bin/chromedriver",
 
 
 def html_to_list(raw_html: str, _length: int) -> list:
-
-
-return list(filter(
-    lambda arr: len(arr) > _length,
-    [[cell.text for cell in row("td")]
-     for row in BeautifulSoup(raw_html, features="lxml")("tr")
-     ]
-))
+    return list(filter(
+        lambda arr: len(arr) > _length,
+        [[cell.text for cell in row("td")]
+         for row in BeautifulSoup(raw_html, features="lxml")("tr")
+         ]
+    ))
 
 
 def html_map(callback, html_data: dict) -> list:
-
-
-return list(map(lambda current: callback(current), html_data))
+    return list(map(lambda current: callback(current), html_data))
 
 
 def custom_cleaning(current, idx, arr):
-
-
-if len(current) < 7 and idx > 0:
-current.insert(0, str(arr[idx-1][0]))
-return current
+    if len(current) < 7 and idx > 0:
+    current.insert(0, str(arr[idx-1][0]))
+    return current
 
 
 def page_setup(_url, _xpath):
-
-
-driver.get(_url)
-tbl = driver.find_element_by_xpath(_xpath).get_attribute('outerHTML')
-return tbl
+    driver.get(_url)
+    tbl = driver.find_element_by_xpath(_xpath).get_attribute('outerHTML')
+    return tbl
 
 
 #################################################################
 # get e5 table and create custom mapper
 
 def e5_mapper(current):
-
-
-return {
-    "EnginePower": re.sub('\u00a0', ' ', re.sub('\u2264', '<=', current[0])),
-    "Year": current[1],
-    "CO": current[2],
-    "NMHC": current[3],
-    "NMHC+NO": current[4],
-    "NO": current[5],
-    "PM": current[5],
-}
+    return {
+        "EnginePower": re.sub('\u00a0', ' ', re.sub('\u2264', '<=', current[0])),
+        "Year": current[1],
+        "CO": current[2],
+        "NMHC": current[3],
+        "NMHC+NO": current[4],
+        "NO": current[5],
+        "PM": current[5],
+    }
 
 e5_result = html_map(
     e5_mapper,
@@ -95,16 +85,14 @@ print("-----------------------------------------------------------")
 
 
 def e4_mapper(current):
-
-
-return {
-    "YEAR": current[0],
-    "CATEGORY": current[1],
-    "CO": current[2],
-    "NHMC": current[3],
-    "NOx": current[4],
-    "PM": current[5]
-}
+    return {
+        "YEAR": current[0],
+        "CATEGORY": current[1],
+        "CO": current[2],
+        "NHMC": current[3],
+        "NOx": current[4],
+        "PM": current[5]
+    }
 
 e4_result = html_map(
     e4_mapper,
