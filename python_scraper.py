@@ -6,6 +6,11 @@ from selenium import webdriver
 from datetime import datetime
 import os
 
+#################################################################
+# scrape data from dynamic svg based charts and convert to json #
+#################################################################
+
+
 # might need two forward // slashes in front of html
 table_e5_xpath = "/html/body/main/article/section[4]/div[1]/table"
 table_e4_xpath = "/html/body/main/article/section[4]/div[2]/table"
